@@ -1,0 +1,10 @@
+# q2: What are the input and output schemas of a given ToolAction?
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+PREFIX td: <https://www.w3.org/2019/wot/td#>
+
+SELECT ?action ?input ?output WHERE {
+    ?action a workflow:ToolAction .
+    ?action td:hasInputSchema ?input .
+    ?action td:hasOutputSchema ?output .
+}

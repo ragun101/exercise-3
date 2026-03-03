@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════
+# ABox: Thing Description for the HtmlParser tool (HTML Parser)
+#
+# UPLOAD INSTRUCTIONS:
+# Upload this Thing Description to your Solid Pod using the Write
+# panel. Each tool's TD should be in its own container, e.g.:
+#   https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/html-parser
+#
+# NOTE: Fragment URIs like <#parseHtml> resolve relative to the
+# document URL. When referencing this action from another document
+# (e.g., a Workflow composition), use the full URI.
+# ═══════════════════════════════════════════════════════════════════
+
+@prefix td:         <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix wotsec:     <https://www.w3.org/2019/wot/security#> .
+@prefix hctl:       <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv:        <http://www.w3.org/2011/http#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+
+# ─── The Thing ────────────────────────────────────────────────
+# A WoT Thing representing the HtmlParser tool on the sandbox computer.
+# It has one action affordance: parseHtml.
+
+<#htmlParserThing> a td:Thing ;
+    td:title "HTML Parser Tool" ;
+    td:hasSecurityConfiguration <#htmlParserThing-nosec> ;
+    td:hasActionAffordance <#parseHtml> .
+
+<#htmlParserThing-nosec> a wotsec:NoSecurityScheme ;
+    dct:title "No Security" .
+
+# ─── Action: parseHtml ───────────────────────────────────────
+# An ActionAffordance with typed input and output schemas.
+
+<#parseHtml> a td:ActionAffordance ;
+    td:name "parseHtml" ;
+    td:title "Parse HTML" ;
+    td:description "Parses HTML content using CSS selectors and outputs structured JSON." ;
+    td:hasInputSchema <#htmlInputSchema> ;
+    td:hasOutputSchema <#jsonOutputSchema> ;
+    td:hasForm [
+        a hctl:Form ;
+        hctl:hasTarget <https://api.example.org/parse-html> ;
+        hctl:hasOperationType td:invokeAction ;
+        hctl:forContentType "application/json" ;
+        htv:methodName "POST"
+    ] .
+
+# ─── Schemas ──────────────────────────────────────────────────
+# The schemas describe the input/output data types of the action.
+
+<#htmlInputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "text/html" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "html" ;
+        td:description "The HTML content to parse."
+    ] , [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "selector" ;
+        td:description "The CSS selector to apply."
+    ] ;
+    jsonschema:required "html" .
+
+<#jsonOutputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "application/json" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "elements" ;
+        td:description "Structured JSON representation of matching HTML elements."
+    ] .

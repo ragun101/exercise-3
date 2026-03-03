@@ -1,0 +1,12 @@
+# q5: Which Things offer a specific type of ToolAction?
+# Expected: At least 1 Thing per ToolAction subclass.
+# Replace workflow:WebFetchAction with your own subclass to test different types.
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+PREFIX td: <https://www.w3.org/2019/wot/td#>
+
+SELECT ?thing ?action WHERE {
+    ?thing a td:Thing ;
+           td:hasActionAffordance ?action .
+    ?action a workflow:WebFetchAction .
+}

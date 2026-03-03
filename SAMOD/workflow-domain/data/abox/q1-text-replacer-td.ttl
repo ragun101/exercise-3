@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════
+# ABox: Thing Description for the TextReplacer tool (Text Replace)
+#
+# UPLOAD INSTRUCTIONS:
+# Upload this Thing Description to your Solid Pod using the Write
+# panel. Each tool's TD should be in its own container, e.g.:
+#   https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/text-replacer
+#
+# NOTE: Fragment URIs like <#replaceText> resolve relative to the
+# document URL. When referencing this action from another document
+# (e.g., a Workflow composition), use the full URI.
+# ═══════════════════════════════════════════════════════════════════
+
+@prefix td:         <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix wotsec:     <https://www.w3.org/2019/wot/security#> .
+@prefix hctl:       <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv:        <http://www.w3.org/2011/http#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+
+# ─── The Thing ────────────────────────────────────────────────
+# A WoT Thing representing the TextReplacer tool on the sandbox computer.
+# It has one action affordance: replaceText.
+
+<#textReplacerThing> a td:Thing ;
+    td:title "Text Replace Tool" ;
+    td:hasSecurityConfiguration <#textReplacerThing-nosec> ;
+    td:hasActionAffordance <#replaceText> .
+
+<#textReplacerThing-nosec> a wotsec:NoSecurityScheme ;
+    dct:title "No Security" .
+
+# ─── Action: replaceText ─────────────────────────────────────
+# An ActionAffordance with typed input and output schemas.
+
+<#replaceText> a td:ActionAffordance ;
+    td:name "replaceText" ;
+    td:title "Replace Text" ;
+    td:description "Performs find-and-replace transformations on text content." ;
+    td:hasInputSchema <#textInputSchema> ;
+    td:hasOutputSchema <#textOutputSchema> ;
+    td:hasForm [
+        a hctl:Form ;
+        hctl:hasTarget <https://api.example.org/replace-text> ;
+        hctl:hasOperationType td:invokeAction ;
+        hctl:forContentType "application/json" ;
+        htv:methodName "POST"
+    ] .
+
+# ─── Schemas ──────────────────────────────────────────────────
+# The schemas describe the input/output data types of the action.
+
+<#textInputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "text/plain" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "expression" ;
+        td:description "The find-and-replace expression."
+    ] , [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "input" ;
+        td:description "The text content to transform."
+    ] ;
+    jsonschema:required "expression" .
+
+<#textOutputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "text/plain" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "result" ;
+        td:description "The transformed text output."
+    ] .

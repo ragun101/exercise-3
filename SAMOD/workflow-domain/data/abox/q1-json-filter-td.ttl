@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════
+# ABox: Thing Description for the JsonFilter tool (JSON Filter)
+#
+# UPLOAD INSTRUCTIONS:
+# Upload this Thing Description to your Solid Pod using the Write
+# panel. Each tool's TD should be in its own container, e.g.:
+#   https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/json-filter
+#
+# NOTE: Fragment URIs like <#filterJson> resolve relative to the
+# document URL. When referencing this action from another document
+# (e.g., a Workflow composition), use the full URI.
+# ═══════════════════════════════════════════════════════════════════
+
+@prefix td:         <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix wotsec:     <https://www.w3.org/2019/wot/security#> .
+@prefix hctl:       <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv:        <http://www.w3.org/2011/http#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+
+# ─── The Thing ────────────────────────────────────────────────
+# A WoT Thing representing the JsonFilter tool on the sandbox computer.
+# It has one action affordance: filterJson.
+
+<#jsonFilterThing> a td:Thing ;
+    td:title "JSON Filter Tool" ;
+    td:hasSecurityConfiguration <#jsonFilterThing-nosec> ;
+    td:hasActionAffordance <#filterJson> .
+
+<#jsonFilterThing-nosec> a wotsec:NoSecurityScheme ;
+    dct:title "No Security" .
+
+# ─── Action: filterJson ──────────────────────────────────────
+# An ActionAffordance with typed input and output schemas.
+
+<#filterJson> a td:ActionAffordance ;
+    td:name "filterJson" ;
+    td:title "Filter JSON" ;
+    td:description "Applies a filter expression to transform JSON data." ;
+    td:hasInputSchema <#jsonInputSchema> ;
+    td:hasOutputSchema <#jsonOutputSchema> ;
+    td:hasForm [
+        a hctl:Form ;
+        hctl:hasTarget <https://api.example.org/filter-json> ;
+        hctl:hasOperationType td:invokeAction ;
+        hctl:forContentType "application/json" ;
+        htv:methodName "POST"
+    ] .
+
+# ─── Schemas ──────────────────────────────────────────────────
+# The schemas describe the input/output data types of the action.
+
+<#jsonInputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "application/json" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "expression" ;
+        td:description "The filter expression."
+    ] , [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "input" ;
+        td:description "The JSON data to process."
+    ] ;
+    jsonschema:required "expression" .
+
+<#jsonOutputSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "application/json" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "result" ;
+        td:description "The filtered/transformed JSON output."
+    ] .

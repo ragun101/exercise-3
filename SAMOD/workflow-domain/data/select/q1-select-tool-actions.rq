@@ -1,0 +1,8 @@
+# q1: What are all the ToolActions?
+# Requires OWL-RL reasoning: ToolAction is inferred from ActionAffordance + schemas.
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+
+SELECT ?action WHERE {
+    ?action a workflow:ToolAction .
+}

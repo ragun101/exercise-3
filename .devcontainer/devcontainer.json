@@ -1,0 +1,21 @@
+{
+  "name": "Exercise 3 — Web Ontologies & Knowledge Graphs",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "forwardPorts": [7200],
+  "portsAttributes": {
+    "7200": {
+      "label": "Comunica-based Server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "cd comunica-solid && npm install",
+  "postStartCommand": "cd comunica-solid && if [ -f .env ]; then node server.js & else echo '⚠ No .env file found — copy .env.example to .env and fill in your credentials, then run: cd comunica-solid && node server.js'; fi",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "stardog-union.stardog-rdf-grammars",
+        "bierner.markdown-mermaid"
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-swiss-green: #00854a;
+  --color-swiss-green-dark: #006b3c;
+  --color-swiss-green-light: #e6f5ed;
+}

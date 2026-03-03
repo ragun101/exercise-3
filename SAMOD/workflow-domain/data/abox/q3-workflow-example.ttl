@@ -1,0 +1,35 @@
+# ═══════════════════════════════════════════════════════════════════
+# ABox: Workflow composition example (STARTER — extend this!)
+#
+# This example shows a Workflow with only ONE step. A single-step Workflow
+# is technically valid but not very useful — the whole point of Workflows
+# is to compose multiple actions into a workflow. Extend this by:
+#
+#   1. Adding at least one more step using p-plan:isStepOfPlan
+#   2. Defining the execution order with p-plan:isPrecededBy
+#   3. (Optional) Making the Workflow composable by giving it input/output
+#      schemas, so it can itself be used as a step in higher-level Workflows
+#
+# IMPORTANT: Because your Thing Descriptions live in separate containers
+# on your Pod, you must use FULL URIs to reference actions here — not
+# bare fragment identifiers. For example:
+#   <https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/web-fetcher#fetchWebPage>
+# instead of just <#fetchWebPage>.
+#
+# UPLOAD INSTRUCTIONS:
+# Upload this to your Solid Pod using the Write panel, e.g.:
+#   https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/workflows/myWorkflow
+# ═══════════════════════════════════════════════════════════════════
+
+@prefix td:          <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema:  <https://www.w3.org/2019/wot/json-schema#> .
+@prefix p-plan:      <http://purl.org/net/p-plan#> .
+
+# ─── A single-step "Workflow" ───────────────────────────────────
+# NOTE: A one-step Workflow is just an action wrapped in a plan —
+# it adds no value. Your task is to make this meaningful by
+# composing at least two actions from different tools.
+
+<https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/web-fetcher#fetchWebPage> p-plan:isStepOfPlan <#it> .
+
+# TODO: Add more steps!

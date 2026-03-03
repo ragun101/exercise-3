@@ -1,0 +1,11 @@
+services:
+  comunica-solid:
+    hostname: comunica-solid
+    build: ./comunica-solid
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "7200:7200"
+    env_file:
+      - ./comunica-solid/.env

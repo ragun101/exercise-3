@@ -1,0 +1,6 @@
+node_modules
+.env
+.env.quiz-master
+.env.testing
+ui/node_modules
+questions

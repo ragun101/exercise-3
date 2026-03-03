@@ -1,0 +1,41 @@
+# q0: Validate Thing Description structure
+# Run this query (without reasoning) against your uploaded TD to check
+# that it follows the expected WoT structure. Each row represents one
+# action affordance of a Thing. All columns should be bound — if any
+# value is missing, your TD is incomplete.
+#
+# Expected per action:
+#   ?thing            — the td:Thing
+#   ?title            — the Thing's title
+#   ?security         — a security configuration
+#   ?action           — an ActionAffordance of the Thing
+#   ?actionName       — the action's td:name
+#   ?inputSchema      — the input ObjectSchema
+#   ?inputMediaType   — the input's contentMediaType (e.g., "text/uri-list")
+#   ?outputSchema     — the output ObjectSchema
+#   ?outputMediaType  — the output's contentMediaType (e.g., "text/html")
+
+PREFIX td:         <https://www.w3.org/2019/wot/td#>
+PREFIX jsonschema: <https://www.w3.org/2019/wot/json-schema#>
+PREFIX wotsec:     <https://www.w3.org/2019/wot/security#>
+
+SELECT ?thing ?title ?security ?action ?actionName
+       ?inputSchema ?inputMediaType ?outputSchema ?outputMediaType
+WHERE {
+    ?thing a td:Thing ;
+           td:title ?title ;
+           td:hasSecurityConfiguration ?security ;
+           td:hasActionAffordance ?action .
+
+    ?action a td:ActionAffordance ;
+            td:name ?actionName .
+
+    OPTIONAL {
+        ?action td:hasInputSchema ?inputSchema .
+        ?inputSchema jsonschema:contentMediaType ?inputMediaType .
+    }
+    OPTIONAL {
+        ?action td:hasOutputSchema ?outputSchema .
+        ?outputSchema jsonschema:contentMediaType ?outputMediaType .
+    }
+}

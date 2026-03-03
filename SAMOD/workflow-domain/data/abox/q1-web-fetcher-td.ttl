@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════
+# ABox: Thing Description for the WebFetcher tool (HTTP Fetch)
+#
+# UPLOAD INSTRUCTIONS:
+# Upload this Thing Description to your Solid Pod using the Write
+# panel. Each tool's TD should be in its own container, e.g.:
+#   https://wiser-solid-xi.interactions.ics.unisg.ch/YOUR-POD/tools/web-fetcher
+#
+# NOTE: Fragment URIs like <#fetchWebPage> resolve relative to the
+# document URL. When referencing this action from another document
+# (e.g., a Workflow composition), use the full URI.
+# ═══════════════════════════════════════════════════════════════════
+
+@prefix td:         <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix wotsec:     <https://www.w3.org/2019/wot/security#> .
+@prefix hctl:       <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv:        <http://www.w3.org/2011/http#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+
+# ─── The Thing ────────────────────────────────────────────────
+# A WoT Thing representing the WebFetcher tool on the sandbox computer.
+# It has one action affordance: fetchWebPage.
+
+<#webFetcherThing> a td:Thing ;
+    td:title "HTTP Fetch Tool" ;
+    td:hasSecurityConfiguration <#webFetcherThing-nosec> ;
+    td:hasActionAffordance <#fetchWebPage> .
+
+<#webFetcherThing-nosec> a wotsec:NoSecurityScheme ;
+    dct:title "No Security" .
+
+# ─── Action: fetchWebPage ────────────────────────────────────
+# An ActionAffordance with typed input and output schemas.
+
+<#fetchWebPage> a td:ActionAffordance ;
+    td:name "fetchWebPage" ;
+    td:title "Fetch URL" ;
+    td:description "Fetches the HTML content of a URL via HTTP GET." ;
+    td:hasInputSchema <#urlSchema> ;
+    td:hasOutputSchema <#htmlSchema> ;
+    td:hasForm [
+        a hctl:Form ;
+        hctl:hasTarget <https://api.example.org/fetch> ;
+        hctl:hasOperationType td:invokeAction ;
+        hctl:forContentType "application/json" ;
+        htv:methodName "POST"
+    ] .
+
+# ─── Schemas ──────────────────────────────────────────────────
+# The schemas describe the input/output data types of the action.
+
+<#urlSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "text/uri-list" ;
+    jsonschema:properties [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "url" ;
+        td:description "The target URL to fetch."
+    ] ;
+    jsonschema:required "url" .
+
+<#htmlSchema> a jsonschema:ObjectSchema ;
+    jsonschema:contentMediaType "text/html" ;
+    jsonschema:properties [
+        a jsonschema:IntegerSchema ;
+        jsonschema:propertyName "status" ;
+        td:description "The HTTP response status code."
+    ] , [
+        a jsonschema:StringSchema ;
+        jsonschema:propertyName "body" ;
+        td:description "The HTML response body."
+    ] .

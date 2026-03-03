@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Submit: PDF for Canvas",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/submit_pdf.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Submit: ZIP for Canvas",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/submit_zip.py",
+      "console": "integratedTerminal"
+    }
+  ]
+}

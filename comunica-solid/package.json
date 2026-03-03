@@ -1,0 +1,20 @@
+{
+  "name": "comunica-solid-sparql",
+  "version": "1.0.0",
+  "description": "Express wrapper around Comunica for querying Solid pods via SPARQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "full": "cd ui && npm install && npm run build && cd .. && node server.js",
+    "test": "node test/test-rewriter.js && node test/test.js && node test/test-reasoners.js"
+  },
+  "dependencies": {
+    "@comunica/query-sparql-link-traversal-solid": "^0.8.0",
+    "@comunica/query-sparql-solid": "^5.0.1",
+    "@inrupt/solid-client": "^2.1.0",
+    "@inrupt/solid-client-authn-core": "^3.1.1",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "n3": "^2.0.1"
+  }
+}

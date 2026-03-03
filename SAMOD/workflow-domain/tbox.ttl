@@ -1,0 +1,136 @@
+@base <https://purl.org/workflow/ontology#> .
+@prefix workflow: <https://purl.org/workflow/ontology#> .
+@prefix td:         <https://www.w3.org/2019/wot/td#> .
+@prefix jsonschema: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix p-plan:     <http://purl.org/net/p-plan#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+
+# ═══════════════════════════════════════════════════════════════════
+# TBox: Workflow Ontology
+#
+# HOW TO READ THIS ONTOLOGY
+#
+# Named classes (e.g. workflow:ToolAction) are declared with
+# rdf:type owl:Class and an rdfs:comment, but carry no structural
+# axiom of their own.
+#
+# The structural definition lives in a separate blank-node class
+# expression (union, intersection, restriction, …) that points
+# back to the named class via rdfs:subClassOf:
+#
+#   [ <complex class expression> ] rdfs:subClassOf :NamedClass .
+#
+# Read this as: "anything that satisfies the complex expression is
+# a member of NamedClass." This is deliberately one-directional —
+# unlike owl:equivalentClass the reverse does not hold, which
+# prevents OWL-RL reasoners from materialising spurious type
+# assertions on class IRIs or propagating types in unintended
+# directions.
+# ═══════════════════════════════════════════════════════════════════
+
+<https://purl.org/workflow/ontology#> a owl:Ontology ;
+    rdfs:comment "An ontology for composable tool actions built on W3C WoT TD and P-Plan."@en ;
+    vann:preferredNamespacePrefix "workflow" .
+
+# ─── External vocabulary (domain/range for reasoning) ───────────
+
+p-plan:isStepOfPlan rdfs:domain p-plan:Step ;
+                    rdfs:range  p-plan:Plan .
+
+p-plan:isPrecededBy rdfs:domain p-plan:Step ;
+                    rdfs:range  p-plan:Step .
+
+# ═══════════════════════════════════════════════════════════════════
+# Core Classes
+# ═══════════════════════════════════════════════════════════════════
+
+# ─── ToolAction ─────────────────────────────────────────────────
+# Either an ActionAffordance or a Workflow, provided it has both
+# an input schema and an output schema.
+# Uses rdfs:subClassOf (not owl:equivalentClass) so that only the
+# forward direction fires: pattern → ToolAction membership.
+
+workflow:ToolAction a owl:Class ;
+    rdfs:comment "An action with typed input and output schemas. Inferred, never directly asserted."@en .
+
+[ a owl:Class ;
+  owl:unionOf (
+    [ a owl:Class ;
+      owl:intersectionOf (
+        td:ActionAffordance
+        [ a owl:Restriction ;
+          owl:onProperty td:hasInputSchema ;
+          owl:someValuesFrom owl:Thing ]
+        [ a owl:Restriction ;
+          owl:onProperty td:hasOutputSchema ;
+          owl:someValuesFrom owl:Thing ]
+      ) ]
+    [ a owl:Class ;
+      owl:intersectionOf (
+        workflow:Workflow
+        [ a owl:Restriction ;
+          owl:onProperty td:hasInputSchema ;
+          owl:someValuesFrom owl:Thing ]
+        [ a owl:Restriction ;
+          owl:onProperty td:hasOutputSchema ;
+          owl:someValuesFrom owl:Thing ]
+      ) ]
+  )
+] rdfs:subClassOf workflow:ToolAction .
+
+# ─── Workflow ───────────────────────────────────────────────────
+# A Plan whose steps are all ToolActions.
+
+workflow:Workflow a owl:Class ;
+    rdfs:comment "A plan whose steps are all ToolActions. Becomes composable when given schemas."@en .
+
+[ a owl:Class ;
+  owl:intersectionOf (
+    p-plan:Plan
+    [ a owl:Restriction ;
+      owl:onProperty [ owl:inverseOf p-plan:isStepOfPlan ] ;
+      owl:allValuesFrom workflow:ToolAction ]
+  )
+] rdfs:subClassOf workflow:Workflow .
+
+# ═══════════════════════════════════════════════════════════════════
+# ToolAction Subclasses
+#
+# Your task:
+#   1. Study the core classes above to understand how ToolAction
+#      is defined and what makes an action a ToolAction
+#   2. Study the Thing Descriptions in data/abox/q1-*-td.ttl to
+#      see what properties distinguish different types of actions
+#   3. Define at least 3 OWL classes below that are subclasses of
+#      workflow:ToolAction, each recognizable by the OWL-RL
+#      reasoner based on schema properties in the ABox
+#
+# The reasoner should be able to automatically classify
+# ActionAffordances into your subclasses — no explicit type
+# assertions should be needed in the Thing Descriptions.
+# ═══════════════════════════════════════════════════════════════════
+
+# ─── WebFetchAction (example) ──────────────────────────────────
+# A ToolAction whose input is a URI and whose output is HTML.
+
+workflow:WebFetchAction a owl:Class ;
+    rdfs:comment "A ToolAction whose input is a URI and whose output is HTML content."@en .
+
+[ a owl:Class ;
+  owl:intersectionOf (
+    workflow:ToolAction
+    [ a owl:Restriction ;
+      owl:onProperty td:hasInputSchema ;
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:contentMediaType ;
+        owl:hasValue "text/uri-list" ] ]
+    [ a owl:Restriction ;
+      owl:onProperty td:hasOutputSchema ;
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:contentMediaType ;
+        owl:hasValue "text/html" ] ]
+  )
+] rdfs:subClassOf workflow:WebFetchAction .

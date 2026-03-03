@@ -1,0 +1,11 @@
+# q4: What is the execution order of steps in a Workflow?
+# Expected: 1 result per step pair linked by p-plan:isPrecededBy.
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+PREFIX p-plan: <http://purl.org/net/p-plan#>
+
+SELECT ?workflow ?step ?predecessorStep WHERE {
+    ?workflow a workflow:Workflow .
+    ?step p-plan:isStepOfPlan ?workflow .
+    ?step p-plan:isPrecededBy ?predecessorStep .
+}

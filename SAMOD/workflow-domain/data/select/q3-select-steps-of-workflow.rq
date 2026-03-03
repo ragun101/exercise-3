@@ -1,0 +1,10 @@
+# q3: What are the steps of a given Workflow?
+# Expected: the individual actions that compose a Workflow, e.g. 2 steps for a 2-step Workflow.
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+PREFIX p-plan: <http://purl.org/net/p-plan#>
+
+SELECT ?workflow ?step WHERE {
+    ?workflow a workflow:Workflow .
+    ?step p-plan:isStepOfPlan ?workflow .
+}
