@@ -136,27 +136,24 @@ workflow:WebFetchAction a owl:Class ;
 ] rdfs:subClassOf workflow:WebFetchAction .
 
 # ---- TextReplaceAction ------------------------------------------
-# A tool whose input is a text and whose properties contain an expression
+# A ToolAction whose input is text/plain and requires an "expression" parameter.
 
 workflow:TextReplaceAction a owl:Class ;
-    rdfs:comment "A ToolAction whose input is a text and whose properties contain an expression."@en .
+    rdfs:comment "A ToolAction whose input is text/plain and requires an expression parameter."@en .
 
 [ a owl:Class ;
   owl:intersectionOf (
     workflow:ToolAction
     [ a owl:Restriction ;
       owl:onProperty td:hasInputSchema ;
-      owl:someValuesFrom [ a owl:Class ;
-        owl:intersectionOf (
-          [ a owl:Restriction ;
-            owl:onProperty jsonschema:contentMediaType ;
-            owl:hasValue "text/plain" ]
-          [ a owl:Restriction ;
-            owl:onProperty jsonschema:properties ;
-            owl:someValuesFrom [ a owl:Restriction ;
-              owl:onProperty jsonschema:propertyName ;
-              owl:hasValue "expression" ] ]
-        ) ] ]
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:contentMediaType ;
+        owl:hasValue "text/plain" ] ]
+    [ a owl:Restriction ;
+      owl:onProperty td:hasInputSchema ;
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:required ;
+        owl:hasValue "expression" ] ]
   )
 ] rdfs:subClassOf workflow:TextReplaceAction .
 
