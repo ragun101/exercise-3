@@ -1,0 +1,12 @@
+# q6: Which ToolActions extend the generic ToolAction with a more specific definition?
+# Expected: At least 1 result per ToolAction subclass (e.g. WebFetchAction, TextReplaceAction, HtmlParseAction).
+# Requires OWL-RL reasoning to infer subclass membership.
+
+PREFIX workflow: <https://purl.org/workflow/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?action ?type WHERE {
+    ?action a ?type .
+    ?type rdfs:subClassOf workflow:ToolAction .
+    FILTER(?type != workflow:ToolAction)
+}
