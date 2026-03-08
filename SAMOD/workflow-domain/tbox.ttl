@@ -134,3 +134,50 @@ workflow:WebFetchAction a owl:Class ;
         owl:hasValue "text/html" ] ]
   )
 ] rdfs:subClassOf workflow:WebFetchAction .
+
+# ---- Text Searcher ---------------------------------------------
+# A tool whose input is a text and whose properties contain an expression
+
+workflow:TextSearchAction a owl:class ;
+    rdfs:comment "A ToolAction whose input is a text and whose properties contain an expression."@en .
+
+[ a owl:Class ;
+  owl:intersectionOf (
+    workflow:ToolAction
+    [ a owl:Restriction ;
+      owl:onProperty td:hasInputSchema ;
+      owl:someValuesFrom [ a owl:Class ;
+        owl:intersectionOf (
+          [ a owl:Restriction ;
+            owl:onProperty jsonschema:contentMediaType ;
+            owl:hasValue "text/plain" ]
+          [ a owl:Restriction ;
+            owl:onProperty jsonschema:properties ;
+            owl:someValuesFrom [ a owl:Restriction ;
+              owl:onProperty jsonschema:propertyName ;
+              owl:hasValue "expression" ] ]
+        ) ] ]
+  )
+] rdfs:subClassOf workflow:TextReplaceAction .
+
+# ---- HtmlParseAction -------------------------------------------
+# A ToolAction whose input is HTML and whose output is JSON.
+
+workflow:HtmlParseAction a owl:Class ;
+    rdfs:comment "A ToolAction that parses HTML content and outputs structured JSON."@en .
+
+[ a owl:Class ;
+  owl:intersectionOf (
+    workflow:ToolAction
+    [ a owl:Restriction ;
+      owl:onProperty td:hasInputSchema ;
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:contentMediaType ;
+        owl:hasValue "text/html" ] ]
+    [ a owl:Restriction ;
+      owl:onProperty td:hasOutputSchema ;
+      owl:someValuesFrom [ a owl:Restriction ;
+        owl:onProperty jsonschema:contentMediaType ;
+        owl:hasValue "application/json" ] ]
+  )
+] rdfs:subClassOf workflow:HtmlParseAction .
