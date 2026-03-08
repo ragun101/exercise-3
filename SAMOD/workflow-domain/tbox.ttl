@@ -135,10 +135,10 @@ workflow:WebFetchAction a owl:Class ;
   )
 ] rdfs:subClassOf workflow:WebFetchAction .
 
-# ---- Text Searcher ---------------------------------------------
+# ---- TextReplaceAction ------------------------------------------
 # A tool whose input is a text and whose properties contain an expression
 
-workflow:TextSearchAction a owl:class ;
+workflow:TextReplaceAction a owl:Class ;
     rdfs:comment "A ToolAction whose input is a text and whose properties contain an expression."@en .
 
 [ a owl:Class ;
