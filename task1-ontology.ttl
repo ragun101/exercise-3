@@ -1,0 +1,974 @@
+@prefix : <http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial> .
+
+<http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial> rdf:type owl:Ontology ;
+                                                                    rdfs:comment "A tutorial ontology for the Pizza domain" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#hasBase
+:hasBase rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :hasIngredient ;
+         owl:inverseOf :isBaseOf ;
+         rdfs:domain :Pizza ;
+         rdfs:range :PizzaBase .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#hasIngredient
+:hasIngredient rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isIngredientOf .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#hasSpiciness
+:hasSpiciness rdf:type owl:ObjectProperty ;
+              rdfs:domain :PizzaTopping ;
+              rdfs:range :Spiciness .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#hasTopping
+:hasTopping rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasIngredient ;
+            owl:inverseOf :isToppingOf ;
+            rdfs:domain :Pizza ;
+            rdfs:range :PizzaTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#isBaseOf
+:isBaseOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isIngredientOf .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#isIngredientOf
+:isIngredientOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#isToppingOf
+:isToppingOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :isIngredientOf .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#AmericanHotPizza
+:AmericanHotPizza rdf:type owl:Class ;
+                  rdfs:subClassOf :CheesyPizza ,
+                                  :InterestingPizza ,
+                                  :NamedPizza ,
+                                  :SpicyPizza ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :JalapenoPepperTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :MozzarellaTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :PepperoniTopping
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasTopping ;
+                                    owl:someValuesFrom :TomatoTopping
+                                  ] ;
+                  owl:disjointWith :AmericanPizza ,
+                                   :AnchovyTopping ,
+                                   :CaperTopping ,
+                                   :CheeseTopping ,
+                                   :DeepPanBase ,
+                                   :GreenPepperTopping ,
+                                   :HamTopping ,
+                                   :JalapenoPepperTopping ,
+                                   :MargheritaPizza ,
+                                   :MeatTopping ,
+                                   :MozzarellaTopping ,
+                                   :MushroomTopping ,
+                                   :OliveTopping ,
+                                   :ParmesanTopping ,
+                                   :PepperTopping ,
+                                   :PepperoniTopping ,
+                                   :PizzaBase ,
+                                   :PizzaTopping ,
+                                   :PrawnTopping ,
+                                   :RedPepperTopping ,
+                                   :SalamiTopping ,
+                                   :SeafoodTopping ,
+                                   :SohoPizza ,
+                                   :SpicyBeefTopping ,
+                                   :ThinAndCrispyBase ,
+                                   :TomatoTopping ,
+                                   :TunaTopping ,
+                                   :VegetableTopping ,
+                                   :VegetarianPizza ;
+                  rdfs:comment "A pizza that only has Mozzarella, Tomato, Jalapeno and Pepperoni toppings." .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#AmericanPizza
+:AmericanPizza rdf:type owl:Class ;
+               rdfs:subClassOf :CheesyPizza ,
+                               :InterestingPizza ,
+                               :NamedPizza ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :MozzarellaTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :PepperoniTopping
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasTopping ;
+                                 owl:someValuesFrom :TomatoTopping
+                               ] ;
+               owl:disjointWith :AnchovyTopping ,
+                                :CaperTopping ,
+                                :CheeseTopping ,
+                                :DeepPanBase ,
+                                :GreenPepperTopping ,
+                                :HamTopping ,
+                                :JalapenoPepperTopping ,
+                                :MargheritaPizza ,
+                                :MeatTopping ,
+                                :MozzarellaTopping ,
+                                :MushroomTopping ,
+                                :OliveTopping ,
+                                :ParmesanTopping ,
+                                :PepperTopping ,
+                                :PepperoniTopping ,
+                                :PizzaBase ,
+                                :PizzaTopping ,
+                                :PrawnTopping ,
+                                :RedPepperTopping ,
+                                :SalamiTopping ,
+                                :SeafoodTopping ,
+                                :SohoPizza ,
+                                :SpicyBeefTopping ,
+                                :ThinAndCrispyBase ,
+                                :TomatoTopping ,
+                                :TunaTopping ,
+                                :VegetableTopping ,
+                                :VegetarianPizza ;
+               rdfs:comment "A pizza that only has Mozzarella, Tomato and Pepperoni toppings." .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#AnchovyTopping
+:AnchovyTopping rdf:type owl:Class ;
+                rdfs:subClassOf :SeafoodTopping ;
+                owl:disjointWith :CaperTopping ,
+                                 :CheeseTopping ,
+                                 :CheesyPizza ,
+                                 :DeepPanBase ,
+                                 :GreenPepperTopping ,
+                                 :HamTopping ,
+                                 :InterestingPizza ,
+                                 :JalapenoPepperTopping ,
+                                 :MargheritaPizza ,
+                                 :MeatTopping ,
+                                 :MozzarellaTopping ,
+                                 :MushroomTopping ,
+                                 :NamedPizza ,
+                                 :OliveTopping ,
+                                 :ParmesanTopping ,
+                                 :PepperTopping ,
+                                 :PepperoniTopping ,
+                                 :Pizza ,
+                                 :PizzaBase ,
+                                 :PrawnTopping ,
+                                 :RedPepperTopping ,
+                                 :SalamiTopping ,
+                                 :SohoPizza ,
+                                 :SpicyBeefTopping ,
+                                 :SpicyPizza ,
+                                 :ThinAndCrispyBase ,
+                                 :TomatoTopping ,
+                                 :TunaTopping ,
+                                 :VegetableTopping ,
+                                 :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#CaperTopping
+:CaperTopping rdf:type owl:Class ;
+              rdfs:subClassOf :VegetableTopping ;
+              owl:disjointWith :CheeseTopping ,
+                               :CheesyPizza ,
+                               :DeepPanBase ,
+                               :GreenPepperTopping ,
+                               :HamTopping ,
+                               :InterestingPizza ,
+                               :JalapenoPepperTopping ,
+                               :MargheritaPizza ,
+                               :MeatTopping ,
+                               :MozzarellaTopping ,
+                               :MushroomTopping ,
+                               :NamedPizza ,
+                               :OliveTopping ,
+                               :ParmesanTopping ,
+                               :PepperTopping ,
+                               :PepperoniTopping ,
+                               :Pizza ,
+                               :PizzaBase ,
+                               :PrawnTopping ,
+                               :RedPepperTopping ,
+                               :SalamiTopping ,
+                               :SeafoodTopping ,
+                               :SohoPizza ,
+                               :SpicyBeefTopping ,
+                               :SpicyPizza ,
+                               :ThinAndCrispyBase ,
+                               :TomatoTopping ,
+                               :TunaTopping ,
+                               :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#CheeseTopping
+:CheeseTopping rdf:type owl:Class ;
+               rdfs:subClassOf :PizzaTopping ;
+               owl:disjointWith :CheesyPizza ,
+                                :DeepPanBase ,
+                                :GreenPepperTopping ,
+                                :HamTopping ,
+                                :InterestingPizza ,
+                                :JalapenoPepperTopping ,
+                                :MargheritaPizza ,
+                                :MeatTopping ,
+                                :MushroomTopping ,
+                                :NamedPizza ,
+                                :OliveTopping ,
+                                :PepperTopping ,
+                                :PepperoniTopping ,
+                                :Pizza ,
+                                :PizzaBase ,
+                                :PrawnTopping ,
+                                :RedPepperTopping ,
+                                :SalamiTopping ,
+                                :SeafoodTopping ,
+                                :SohoPizza ,
+                                :SpicyBeefTopping ,
+                                :SpicyPizza ,
+                                :ThinAndCrispyBase ,
+                                :TomatoTopping ,
+                                :TunaTopping ,
+                                :VegetableTopping ,
+                                :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#CheesyPizza
+:CheesyPizza rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasTopping ;
+                                                          owl:someValuesFrom :CheeseTopping
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :Pizza ;
+             owl:disjointWith :DeepPanBase ,
+                              :GreenPepperTopping ,
+                              :HamTopping ,
+                              :JalapenoPepperTopping ,
+                              :MeatTopping ,
+                              :MozzarellaTopping ,
+                              :MushroomTopping ,
+                              :OliveTopping ,
+                              :ParmesanTopping ,
+                              :PepperTopping ,
+                              :PepperoniTopping ,
+                              :PizzaBase ,
+                              :PizzaTopping ,
+                              :PrawnTopping ,
+                              :RedPepperTopping ,
+                              :SalamiTopping ,
+                              :SeafoodTopping ,
+                              :SpicyBeefTopping ,
+                              :ThinAndCrispyBase ,
+                              :TomatoTopping ,
+                              :TunaTopping ,
+                              :VegetableTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#DeepPanBase
+:DeepPanBase rdf:type owl:Class ;
+             rdfs:subClassOf :PizzaBase ;
+             owl:disjointWith :GreenPepperTopping ,
+                              :HamTopping ,
+                              :InterestingPizza ,
+                              :JalapenoPepperTopping ,
+                              :MargheritaPizza ,
+                              :MeatTopping ,
+                              :MozzarellaTopping ,
+                              :MushroomTopping ,
+                              :NamedPizza ,
+                              :OliveTopping ,
+                              :ParmesanTopping ,
+                              :PepperTopping ,
+                              :PepperoniTopping ,
+                              :Pizza ,
+                              :PizzaTopping ,
+                              :PrawnTopping ,
+                              :RedPepperTopping ,
+                              :SalamiTopping ,
+                              :SeafoodTopping ,
+                              :SohoPizza ,
+                              :SpicyBeefTopping ,
+                              :SpicyPizza ,
+                              :ThinAndCrispyBase ,
+                              :TomatoTopping ,
+                              :TunaTopping ,
+                              :VegetableTopping ,
+                              :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#GreenPepperTopping
+:GreenPepperTopping rdf:type owl:Class ;
+                    rdfs:subClassOf :PepperTopping ;
+                    owl:disjointWith :HamTopping ,
+                                     :InterestingPizza ,
+                                     :JalapenoPepperTopping ,
+                                     :MargheritaPizza ,
+                                     :MeatTopping ,
+                                     :MozzarellaTopping ,
+                                     :MushroomTopping ,
+                                     :NamedPizza ,
+                                     :OliveTopping ,
+                                     :ParmesanTopping ,
+                                     :PepperoniTopping ,
+                                     :Pizza ,
+                                     :PizzaBase ,
+                                     :PrawnTopping ,
+                                     :RedPepperTopping ,
+                                     :SalamiTopping ,
+                                     :SeafoodTopping ,
+                                     :SohoPizza ,
+                                     :SpicyBeefTopping ,
+                                     :SpicyPizza ,
+                                     :ThinAndCrispyBase ,
+                                     :TomatoTopping ,
+                                     :TunaTopping ,
+                                     :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#HamTopping
+:HamTopping rdf:type owl:Class ;
+            rdfs:subClassOf :MeatTopping ;
+            owl:disjointWith :InterestingPizza ,
+                             :JalapenoPepperTopping ,
+                             :MargheritaPizza ,
+                             :MozzarellaTopping ,
+                             :MushroomTopping ,
+                             :NamedPizza ,
+                             :OliveTopping ,
+                             :ParmesanTopping ,
+                             :PepperTopping ,
+                             :PepperoniTopping ,
+                             :Pizza ,
+                             :PizzaBase ,
+                             :PrawnTopping ,
+                             :RedPepperTopping ,
+                             :SalamiTopping ,
+                             :SeafoodTopping ,
+                             :SohoPizza ,
+                             :SpicyBeefTopping ,
+                             :SpicyPizza ,
+                             :ThinAndCrispyBase ,
+                             :TomatoTopping ,
+                             :TunaTopping ,
+                             :VegetableTopping ,
+                             :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#InterestingPizza
+:InterestingPizza rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :hasTopping ;
+                                                               owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                               owl:onClass :PizzaTopping
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Pizza ;
+                  owl:disjointWith :JalapenoPepperTopping ,
+                                   :MeatTopping ,
+                                   :MozzarellaTopping ,
+                                   :MushroomTopping ,
+                                   :OliveTopping ,
+                                   :ParmesanTopping ,
+                                   :PepperTopping ,
+                                   :PepperoniTopping ,
+                                   :PizzaBase ,
+                                   :PizzaTopping ,
+                                   :PrawnTopping ,
+                                   :RedPepperTopping ,
+                                   :SalamiTopping ,
+                                   :SeafoodTopping ,
+                                   :SpicyBeefTopping ,
+                                   :ThinAndCrispyBase ,
+                                   :TomatoTopping ,
+                                   :TunaTopping ,
+                                   :VegetableTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#JalapenoPepperTopping
+:JalapenoPepperTopping rdf:type owl:Class ;
+                       rdfs:subClassOf :PepperTopping ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasSpiciness ;
+                                         owl:hasValue :Hot
+                                       ] ;
+                       owl:disjointWith :MargheritaPizza ,
+                                        :MeatTopping ,
+                                        :MozzarellaTopping ,
+                                        :MushroomTopping ,
+                                        :NamedPizza ,
+                                        :OliveTopping ,
+                                        :ParmesanTopping ,
+                                        :PepperoniTopping ,
+                                        :Pizza ,
+                                        :PizzaBase ,
+                                        :PrawnTopping ,
+                                        :RedPepperTopping ,
+                                        :SalamiTopping ,
+                                        :SeafoodTopping ,
+                                        :SohoPizza ,
+                                        :SpicyBeefTopping ,
+                                        :SpicyPizza ,
+                                        :ThinAndCrispyBase ,
+                                        :TomatoTopping ,
+                                        :TunaTopping ,
+                                        :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#MargheritaPizza
+:MargheritaPizza rdf:type owl:Class ;
+                 rdfs:subClassOf :CheesyPizza ,
+                                 :NamedPizza ,
+                                 :VegetarianPizza ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:someValuesFrom :MozzarellaTopping
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:someValuesFrom :TomatoTopping
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasTopping ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( :MozzarellaTopping
+                                                                     :TomatoTopping
+                                                                   )
+                                                     ]
+                                 ] ;
+                 owl:disjointWith :MeatTopping ,
+                                  :MozzarellaTopping ,
+                                  :MushroomTopping ,
+                                  :OliveTopping ,
+                                  :ParmesanTopping ,
+                                  :PepperTopping ,
+                                  :PepperoniTopping ,
+                                  :PizzaBase ,
+                                  :PizzaTopping ,
+                                  :PrawnTopping ,
+                                  :RedPepperTopping ,
+                                  :SalamiTopping ,
+                                  :SeafoodTopping ,
+                                  :SohoPizza ,
+                                  :SpicyBeefTopping ,
+                                  :ThinAndCrispyBase ,
+                                  :TomatoTopping ,
+                                  :TunaTopping ,
+                                  :VegetableTopping ;
+                 rdfs:comment "A pizza that only has Mozzarella and Tomato toppings." .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#MeatTopping
+:MeatTopping rdf:type owl:Class ;
+             rdfs:subClassOf :PizzaTopping ;
+             owl:disjointWith :MozzarellaTopping ,
+                              :MushroomTopping ,
+                              :NamedPizza ,
+                              :OliveTopping ,
+                              :ParmesanTopping ,
+                              :PepperTopping ,
+                              :Pizza ,
+                              :PizzaBase ,
+                              :PrawnTopping ,
+                              :RedPepperTopping ,
+                              :SeafoodTopping ,
+                              :SohoPizza ,
+                              :SpicyPizza ,
+                              :ThinAndCrispyBase ,
+                              :TomatoTopping ,
+                              :TunaTopping ,
+                              :VegetableTopping ,
+                              :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#MozzarellaTopping
+:MozzarellaTopping rdf:type owl:Class ;
+                   rdfs:subClassOf :CheeseTopping ;
+                   owl:disjointWith :MushroomTopping ,
+                                    :NamedPizza ,
+                                    :OliveTopping ,
+                                    :ParmesanTopping ,
+                                    :PepperTopping ,
+                                    :PepperoniTopping ,
+                                    :Pizza ,
+                                    :PizzaBase ,
+                                    :PrawnTopping ,
+                                    :RedPepperTopping ,
+                                    :SalamiTopping ,
+                                    :SeafoodTopping ,
+                                    :SohoPizza ,
+                                    :SpicyBeefTopping ,
+                                    :SpicyPizza ,
+                                    :ThinAndCrispyBase ,
+                                    :TomatoTopping ,
+                                    :TunaTopping ,
+                                    :VegetableTopping ,
+                                    :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#MushroomTopping
+:MushroomTopping rdf:type owl:Class ;
+                 rdfs:subClassOf :VegetableTopping ;
+                 owl:disjointWith :NamedPizza ,
+                                  :OliveTopping ,
+                                  :ParmesanTopping ,
+                                  :PepperTopping ,
+                                  :PepperoniTopping ,
+                                  :Pizza ,
+                                  :PizzaBase ,
+                                  :PrawnTopping ,
+                                  :RedPepperTopping ,
+                                  :SalamiTopping ,
+                                  :SeafoodTopping ,
+                                  :SohoPizza ,
+                                  :SpicyBeefTopping ,
+                                  :SpicyPizza ,
+                                  :ThinAndCrispyBase ,
+                                  :TomatoTopping ,
+                                  :TunaTopping ,
+                                  :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#NamedPizza
+:NamedPizza rdf:type owl:Class ;
+            rdfs:subClassOf :Pizza ;
+            owl:disjointWith :OliveTopping ,
+                             :ParmesanTopping ,
+                             :PepperTopping ,
+                             :PepperoniTopping ,
+                             :PizzaBase ,
+                             :PizzaTopping ,
+                             :PrawnTopping ,
+                             :RedPepperTopping ,
+                             :SalamiTopping ,
+                             :SeafoodTopping ,
+                             :SpicyBeefTopping ,
+                             :ThinAndCrispyBase ,
+                             :TomatoTopping ,
+                             :TunaTopping ,
+                             :VegetableTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#OliveTopping
+:OliveTopping rdf:type owl:Class ;
+              rdfs:subClassOf :VegetableTopping ;
+              owl:disjointWith :ParmesanTopping ,
+                               :PepperTopping ,
+                               :PepperoniTopping ,
+                               :Pizza ,
+                               :PizzaBase ,
+                               :PrawnTopping ,
+                               :RedPepperTopping ,
+                               :SalamiTopping ,
+                               :SeafoodTopping ,
+                               :SohoPizza ,
+                               :SpicyBeefTopping ,
+                               :SpicyPizza ,
+                               :ThinAndCrispyBase ,
+                               :TomatoTopping ,
+                               :TunaTopping ,
+                               :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#ParmesanTopping
+:ParmesanTopping rdf:type owl:Class ;
+                 rdfs:subClassOf :CheeseTopping ;
+                 owl:disjointWith :PepperTopping ,
+                                  :PepperoniTopping ,
+                                  :Pizza ,
+                                  :PizzaBase ,
+                                  :PrawnTopping ,
+                                  :RedPepperTopping ,
+                                  :SalamiTopping ,
+                                  :SeafoodTopping ,
+                                  :SohoPizza ,
+                                  :SpicyBeefTopping ,
+                                  :SpicyPizza ,
+                                  :ThinAndCrispyBase ,
+                                  :TomatoTopping ,
+                                  :TunaTopping ,
+                                  :VegetableTopping ,
+                                  :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#PepperTopping
+:PepperTopping rdf:type owl:Class ;
+               rdfs:subClassOf :VegetableTopping ;
+               owl:disjointWith :PepperoniTopping ,
+                                :Pizza ,
+                                :PizzaBase ,
+                                :PrawnTopping ,
+                                :SalamiTopping ,
+                                :SeafoodTopping ,
+                                :SohoPizza ,
+                                :SpicyBeefTopping ,
+                                :SpicyPizza ,
+                                :ThinAndCrispyBase ,
+                                :TomatoTopping ,
+                                :TunaTopping ,
+                                :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#PepperoniTopping
+:PepperoniTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :MeatTopping ;
+                  owl:disjointWith :Pizza ,
+                                   :PizzaBase ,
+                                   :PrawnTopping ,
+                                   :RedPepperTopping ,
+                                   :SalamiTopping ,
+                                   :SeafoodTopping ,
+                                   :SohoPizza ,
+                                   :SpicyBeefTopping ,
+                                   :SpicyPizza ,
+                                   :ThinAndCrispyBase ,
+                                   :TomatoTopping ,
+                                   :TunaTopping ,
+                                   :VegetableTopping ,
+                                   :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#Pizza
+:Pizza rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasBase ;
+                         owl:someValuesFrom :PizzaBase
+                       ] ;
+       owl:disjointWith :PizzaBase ,
+                        :PizzaTopping ,
+                        :PrawnTopping ,
+                        :RedPepperTopping ,
+                        :SalamiTopping ,
+                        :SeafoodTopping ,
+                        :SpicyBeefTopping ,
+                        :ThinAndCrispyBase ,
+                        :TomatoTopping ,
+                        :TunaTopping ,
+                        :VegetableTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#PizzaBase
+:PizzaBase rdf:type owl:Class ;
+           owl:disjointWith :PizzaTopping ,
+                            :PrawnTopping ,
+                            :RedPepperTopping ,
+                            :SalamiTopping ,
+                            :SeafoodTopping ,
+                            :SohoPizza ,
+                            :SpicyBeefTopping ,
+                            :SpicyPizza ,
+                            :TomatoTopping ,
+                            :TunaTopping ,
+                            :VegetableTopping ,
+                            :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#PizzaTopping
+:PizzaTopping rdf:type owl:Class ;
+              owl:disjointWith :SohoPizza ,
+                               :SpicyPizza ,
+                               :ThinAndCrispyBase ,
+                               :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#PrawnTopping
+:PrawnTopping rdf:type owl:Class ;
+              rdfs:subClassOf :SeafoodTopping ;
+              owl:disjointWith :RedPepperTopping ,
+                               :SalamiTopping ,
+                               :SohoPizza ,
+                               :SpicyBeefTopping ,
+                               :SpicyPizza ,
+                               :ThinAndCrispyBase ,
+                               :TomatoTopping ,
+                               :TunaTopping ,
+                               :VegetableTopping ,
+                               :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#RedPepperTopping
+:RedPepperTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :PepperTopping ;
+                  owl:disjointWith :SalamiTopping ,
+                                   :SeafoodTopping ,
+                                   :SohoPizza ,
+                                   :SpicyBeefTopping ,
+                                   :SpicyPizza ,
+                                   :ThinAndCrispyBase ,
+                                   :TomatoTopping ,
+                                   :TunaTopping ,
+                                   :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#SalamiTopping
+:SalamiTopping rdf:type owl:Class ;
+               rdfs:subClassOf :MeatTopping ;
+               owl:disjointWith :SeafoodTopping ,
+                                :SohoPizza ,
+                                :SpicyBeefTopping ,
+                                :SpicyPizza ,
+                                :ThinAndCrispyBase ,
+                                :TomatoTopping ,
+                                :TunaTopping ,
+                                :VegetableTopping ,
+                                :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#SeafoodTopping
+:SeafoodTopping rdf:type owl:Class ;
+                rdfs:subClassOf :PizzaTopping ;
+                owl:disjointWith :SohoPizza ,
+                                 :SpicyBeefTopping ,
+                                 :SpicyPizza ,
+                                 :ThinAndCrispyBase ,
+                                 :TomatoTopping ,
+                                 :VegetableTopping ,
+                                 :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#SohoPizza
+:SohoPizza rdf:type owl:Class ;
+           rdfs:subClassOf :CheesyPizza ,
+                           :InterestingPizza ,
+                           :NamedPizza ,
+                           :VegetarianPizza ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :MozzarellaTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :OliveTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :ParmesanTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:someValuesFrom :TomatoTopping
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasTopping ;
+                             owl:allValuesFrom [ rdf:type owl:Class ;
+                                                 owl:unionOf ( :MozzarellaTopping
+                                                               :OliveTopping
+                                                               :ParmesanTopping
+                                                               :TomatoTopping
+                                                             )
+                                               ]
+                           ] ;
+           owl:disjointWith :SpicyBeefTopping ,
+                            :ThinAndCrispyBase ,
+                            :TomatoTopping ,
+                            :TunaTopping ,
+                            :VegetableTopping ;
+           rdfs:comment "A pizza that only has Mozzarella, Olive and Tomato toppings." .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#Spiciness
+:Spiciness rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:oneOf ( :Hot
+                                             :Medium
+                                             :Mild
+                                           )
+                               ] .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#SpicyBeefTopping
+:SpicyBeefTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :MeatTopping ;
+                  owl:disjointWith :SpicyPizza ,
+                                   :ThinAndCrispyBase ,
+                                   :TomatoTopping ,
+                                   :TunaTopping ,
+                                   :VegetableTopping ,
+                                   :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#SpicyPizza
+:SpicyPizza rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hasTopping ;
+                                                         owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty :hasSpiciness ;
+                                                                              owl:hasValue :Hot
+                                                                            ]
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf :Pizza ;
+            owl:disjointWith :ThinAndCrispyBase ,
+                             :TomatoTopping ,
+                             :TunaTopping ,
+                             :VegetableTopping .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#ThinAndCrispyBase
+:ThinAndCrispyBase rdf:type owl:Class ;
+                   rdfs:subClassOf :PizzaBase ;
+                   owl:disjointWith :TomatoTopping ,
+                                    :TunaTopping ,
+                                    :VegetableTopping ,
+                                    :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#TomatoTopping
+:TomatoTopping rdf:type owl:Class ;
+               rdfs:subClassOf :VegetableTopping ;
+               owl:disjointWith :TunaTopping ,
+                                :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#TunaTopping
+:TunaTopping rdf:type owl:Class ;
+             rdfs:subClassOf :SeafoodTopping ;
+             owl:disjointWith :VegetableTopping ,
+                              :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#VegetableTopping
+:VegetableTopping rdf:type owl:Class ;
+                  rdfs:subClassOf :PizzaTopping ;
+                  owl:disjointWith :VegetarianPizza .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#VegetarianPizza
+:VegetarianPizza rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Pizza
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasTopping ;
+                                                              owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                  owl:unionOf ( :CheeseTopping
+                                                                                                :VegetableTopping
+                                                                                              )
+                                                                                ]
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :Pizza .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#Hot
+:Hot rdf:type owl:NamedIndividual ,
+              :Spiciness .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#Medium
+:Medium rdf:type owl:NamedIndividual ,
+                 :Spiciness .
+
+
+###  http://www.semanticweb.org/rapha/ontologies/2026/2/PizzaTutorial#Mild
+:Mild rdf:type owl:NamedIndividual ,
+               :Spiciness .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AmericanHotPizza
+                :AmericanPizza
+                :MargheritaPizza
+                :SohoPizza
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AnchovyTopping
+                :PrawnTopping
+                :TunaTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :CaperTopping
+                :MushroomTopping
+                :OliveTopping
+                :PepperTopping
+                :TomatoTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :CheeseTopping
+                :MeatTopping
+                :SeafoodTopping
+                :VegetableTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :GreenPepperTopping
+                :JalapenoPepperTopping
+                :RedPepperTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :HamTopping
+                :PepperoniTopping
+                :SalamiTopping
+                :SpicyBeefTopping
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Pizza
+                :PizzaBase
+                :PizzaTopping
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
