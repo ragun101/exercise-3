@@ -6,7 +6,7 @@ PREFIX workflow: <https://purl.org/workflow/ontology#>
 PREFIX p-plan: <http://purl.org/net/p-plan#>
 PREFIX td: <https://www.w3.org/2019/wot/td#>
 
-SELECT ?workflow ?thing ?action WHERE {
+SELECT DISTINCT ?workflow ?thing ?action WHERE {
     ?workflow a workflow:Workflow .
     ?action p-plan:isStepOfPlan ?workflow .
     ?thing a td:Thing ;
